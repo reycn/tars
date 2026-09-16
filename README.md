@@ -53,7 +53,7 @@ The integration test uses separate ports 27893/27894 and does not inject into Vi
 ## Verified on this Mac
 
 - Xcode 27.0 simulator build succeeded; app installed and launched on iPhone 17 Pro / iOS 26.5.
-- Four displays inspected from actual simulator screenshots (`waiting.png`, `working.png`, `approval.png`, `completed.png`).
+- Theme reference pictures live under `themes/<name>/` (`waiting.png`, `working.png`, `approval.png`, `completed.png`); the current pixel-art look is `themes/bit/`.
 - Bonjour discovery and automatic reconnection after server restart verified with established app/server connections.
 - Mirror → native Mac push → iOS approval display verified with an explicit fixture sent through a no-op original launcher; no synthetic event was injected into Vibe Island. One local mirror-to-push check took 49 ms including Python startup; this is not a physical-phone latency benchmark.
 - Seven mirror checks and the isolated server integration check passed.
