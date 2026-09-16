@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0f14"/>
+      <stop offset="0.55" stop-color="#1a232c"/>
+      <stop offset="1" stop-color="#2c3a44"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3d47"/>
+      <stop offset="1" stop-color="#0a1116"/>
+    </linearGradient>
+    <linearGradient id="slabL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6b7178"/>
+      <stop offset="1" stop-color="#3b4046"/>
+    </linearGradient>
+    <linearGradient id="slabR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a2e33"/>
+      <stop offset="1" stop-color="#15181b"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="rain" width="14" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+      <line x1="7" y1="0" x2="7" y2="22" stroke="#9fb3c0" stroke-opacity="0.18" stroke-width="1"/>
+    </pattern>
+    <pattern id="ripple" width="120" height="16" patternUnits="userSpaceOnUse">
+      <path d="M0 8 Q30 0 60 8 T120 8" fill="none" stroke="#7d95a3" stroke-opacity="0.22" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- sky and sea -->
+  <rect width="1600" height="520" fill="url(#sky)"/>
+  <rect y="330" width="1600" height="190" fill="url(#sea)"/>
+  <rect y="330" width="1600" height="190" fill="url(#ripple)"/>
+  <rect width="1600" height="520" fill="url(#rain)"/>
+
+  <!-- TARS: four hinged slabs, two tilted, rising from the water -->
+  <g transform="translate(1180,0)">
+    <!-- back slab, leaning -->
+    <polygon points="60,330 130,60 190,60 120,330" fill="url(#slabR)"/>
+    <polygon points="130,60 190,60 205,70 145,70" fill="#4a5158"/>
+    <!-- front-left slab, leaning the other way -->
+    <polygon points="-20,340 40,70 100,70 40,340" fill="url(#slabL)"/>
+    <polygon points="40,70 100,70 112,82 52,82" fill="#8a9199"/>
+    <!-- upright slab (the face) -->
+    <rect x="150" y="40" width="70" height="300" fill="#1c1f23"/>
+    <rect x="150" y="40" width="70" height="8" fill="#5c636a"/>
+    <!-- seams -->
+    <line x1="150" y1="120" x2="220" y2="120" stroke="#0a0c0e" stroke-width="2"/>
+    <line x1="150" y1="200" x2="220" y2="200" stroke="#0a0c0e" stroke-width="2"/>
+    <line x1="150" y1="280" x2="220" y2="280" stroke="#0a0c0e" stroke-width="2"/>
+    <!-- pixel eyes -->
+    <g fill="#ffffff" filter="url(#glow)">
+      <rect x="162" y="150" width="18" height="6"/>
+      <rect x="190" y="150" width="18" height="6"/>
+    </g>
+    <!-- fourth slab, mostly submerged -->
+    <polygon points="230,340 270,200 300,200 262,340" fill="#101316"/>
+    <!-- waterline splash -->
+    <rect x="-30" y="332" width="340" height="10" fill="#9fb3c0" fill-opacity="0.18"/>
+    <!-- reflection -->
+    <g opacity="0.25" transform="translate(0,680) scale(1,-1)">
+      <rect x="150" y="40" width="70" height="300" fill="#1c1f23"/>
+      <polygon points="-20,340 40,70 100,70 40,340" fill="url(#slabL)"/>
+      <polygon points="60,330 130,60 190,60 120,330" fill="url(#slabR)"/>
+      <g fill="#ffffff">
+        <rect x="162" y="150" width="18" height="6"/>
+        <rect x="190" y="150" width="18" height="6"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- title block -->
+  <g transform="translate(96,0)">
+    <!-- pixel eyes as logo -->
+    <g fill="#ffffff" filter="url(#glow)">
+      <rect x="0" y="170" width="56" height="14"/>
+      <rect x="80" y="170" width="56" height="14"/>
+    </g>
+    <text x="0" y="290" font-size="128" font-weight="700" fill="#f3f5f7" letter-spacing="6">TARS</text>
+    <text x="4" y="345" font-size="30" fill="#c6d0d8">Turns your iPhone into the face of your agents.</text>
+    <text x="4" y="388" font-size="22" fill="#8b9ba7">Claude Code · Codex · pixel eyes · pure black · Bonjour. Inspired by Interstellar.</text>
+    <!-- state chips -->
+    <g font-size="18" font-weight="600">
+      <rect x="4" y="420" width="120" height="34" rx="2" fill="#000" stroke="#ffffff" stroke-opacity="0.6"/>
+      <text x="64" y="443" text-anchor="middle" fill="#ffffff">waiting</text>
+      <rect x="136" y="420" width="120" height="34" rx="2" fill="#000" stroke="#8cf2ff" stroke-opacity="0.8"/>
+      <text x="196" y="443" text-anchor="middle" fill="#8cf2ff">working</text>
+      <rect x="268" y="420" width="130" height="34" rx="2" fill="#000" stroke="#ff9e40" stroke-opacity="0.9"/>
+      <text x="333" y="443" text-anchor="middle" fill="#ff9e40">approval</text>
+      <rect x="410" y="420" width="140" height="34" rx="2" fill="#000" stroke="#73ff8c" stroke-opacity="0.8"/>
+      <text x="480" y="443" text-anchor="middle" fill="#73ff8c">completed</text>
+    </g>
+  </g>
+</svg>

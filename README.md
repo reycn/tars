@@ -1,8 +1,12 @@
 # Tars
 
+![Tars banner](doc/banner.svg)
+
+Turns your iPhone into the face of your agents. Inspired by *Interstellar*.
+
 **English** · [中文](doc/README.zh-CN.md)
 
-Turn a spare iPhone into an always-on status face for your coding agents. Two pixel eyes on a pure-black screen tell you, from across the room, whether Claude Code or Codex is thinking, waiting for your approval, done, or idle.
+Two pixel eyes on a pure-black screen tell you, from across the room, whether Claude Code or Codex is thinking, waiting for your approval, done, or idle.
 
 | Waiting | Working | Approval | Completed |
 |---|---|---|---|

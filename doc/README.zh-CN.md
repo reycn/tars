@@ -1,5 +1,9 @@
 # Tars
 
+![Tars banner](banner.svg)
+
+把 iPhone 变成你的智能体的脸。灵感来自《星际穿越》。
+
 [English](../README.md) · **中文**
 
 把一台闲置的 iPhone 变成编程智能体的常亮状态面板。纯黑屏幕上的两只像素眼睛，让你隔着房间就能看出 Claude Code 或 Codex 正在思考、等你批准、已完成，还是空闲。
