@@ -1,6 +1,6 @@
 # Tars
 
-![Tars banner](banner.svg)
+![Tars banner](banner.zh-CN.svg)
 
 把 iPhone 变成你的智能体的脸。灵感来自《星际穿越》。
 
