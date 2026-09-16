@@ -2,7 +2,7 @@
 
 ![Tars banner](doc/banner.svg)
 
-Turns your iPhone into the face of your agents. Inspired by *Interstellar*.
+Turns your iPhone into the face of your agents on Mac. Inspired by *Interstellar*.
 
 **English** · [中文](doc/README.zh-CN.md)
 
