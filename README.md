@@ -1,62 +1,124 @@
 # Tars
 
-A full-screen native iOS companion: two pixel eyes, four states, no account or pairing screen.
+**English** · [中文](doc/README.zh-CN.md)
 
-## Open on iPhone
+Turn a spare iPhone into an always-on status face for your coding agents. Two pixel eyes on a pure-black screen tell you, from across the room, whether Claude Code or Codex is thinking, waiting for your approval, done, or idle.
 
-Open `Tars.xcodeproj` in Xcode, select your personal development team under Signing & Capabilities, select your phone, and run. Allow Local Network access. Keep the phone and Mac on the same local network. The app connects automatically to the first discovered `_tars._tcp` server. Bonjour discovers network reachability, not physical distance.
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| ![waiting](themes/bit/waiting.png) | ![working](themes/bit/working.png) | ![approval](themes/bit/approval.png) | ![completed](themes/bit/completed.png) |
 
-Tap the face to show or hide state and connection information. Waiting and working use true black; approval uses orange; completion uses dark green for five seconds. The app respects Reduce Motion. Static states have no animation loop. It leaves system auto-lock enabled.
+## What you get
 
-## Communication
+- **iPhone app**: full-screen pixel-art face, keeps the screen awake, auto-rotates, AMOLED-friendly (background is always true black; state is carried by glyph shape and pixel colour).
+- **Mac menu bar app**: discovers nothing, needs no account. It listens for agent lifecycle hooks, reduces them to one state, and pushes that to paired phones over your local network via Bonjour.
+- **Agent hooks, not log scraping**: the same approach as [codestatus](https://github.com/henriquegpb/codestatus). Claude Code and Codex call a tiny hook script on every lifecycle event; nothing else is watched.
+- **Detail line**: under the eyes, the current tool, the pending question, or the last assistant message, clipped to two lines.
+- **Pairing**: a six-digit code shown on the Mac, entered once on the phone.
 
-Native `NWBrowser` → Bonjour → `NWConnection` → newline-delimited JSON. Each connection receives a complete snapshot. Subsequent state changes are pushed immediately. Packets carry a server-session UUID and monotonic sequence number. Heartbeats repeat the existing sequence so they do not replay completion. Active heartbeat: 20 seconds; idle heartbeat: 120 seconds. The client disconnects in the background, reconnects when active, rejects malformed/oversized input, and uses bounded reconnect backoff.
+## Quick start
 
-Only aggregate state and source availability travel over the network. No prompts, project paths, session identifiers from agents, commands, or approval actions are exposed.
+1. **Mac**: build and install the menu bar app (or grab a Release build).
 
-This development prototype intentionally omits pairing and uses unauthenticated local TCP. Use it on a trusted local network. Four-digit pairing with authenticated encryption, direct agent adapters, BLE, and remote notifications are future work; there are no placeholder pairing screens. An app in the background is not a live status monitor.
+   ```zsh
+   xcodebuild -project Tars.xcodeproj -scheme TarsMac -configuration Release -derivedDataPath .build/mac build
+   cp -R .build/mac/Build/Products/Release/TarsMac.app /Applications/Tars.app && open /Applications/Tars.app
+   ```
 
-## Build
+2. **Connect your agents**: in the Mac app, Settings (⌘,) → *Agents*, switch on Claude Code and/or Codex. Codex additionally needs you to run `/hooks` inside Codex once and trust the Tars entries.
 
-The generated Xcode project is included; XcodeGen is only needed after changing `project.yml`.
+3. **iPhone**: open `Tars.xcodeproj` in Xcode, pick your team under Signing & Capabilities, select the phone, run. Allow Local Network access when asked.
 
-```zsh
-xcodebuild -project Tars.xcodeproj -scheme Tars \
-  -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-  -derivedDataPath .build/iOS CODE_SIGNING_ALLOWED=NO build
+4. **Pair**: the phone asks for a PIN two seconds after launch if it isn't paired yet. Read the code from the Mac's Settings window and enter it. It's remembered.
+
+Start a new agent session and the eyes come alive. Sessions that were already open before step 2 keep their old hook set until restarted.
+
+## How it works
+
+```
+Claude Code / Codex ──hook──▶ ~/.tars/bin/tars-hook ──loopback 17894──▶ Tars.app ──Bonjour/TCP 17893──▶ iPhone
 ```
 
-For visual inspection, Debug builds accept `--preview-state waiting`, `working`, `approval`, or `completed`. Preview is explicit and does not connect to the live source. Normal launches always discover a server.
+**Hook** ([Mac/hook.py](Mac/hook.py)). Reads one JSON payload from stdin, projects it to a hashed session key, a normalized state, and one clipped detail line, and pushes that to `127.0.0.1:17894` with a 50 ms budget. It always exits 0 and is registered `async` for Claude Code, so it can never block or fail the agent.
 
-## Agent hooks
-
-Tars uses the agents' own lifecycle hooks as the source of truth, the same approach as [codestatus](https://github.com/henriquegpb/codestatus). No Vibe Island or other bridge is required.
-
-In the Mac app, Settings → Agents toggles Claude Code and Codex. That stages `~/.tars/bin/tars-hook` (and `tars-hook-codex`) and registers it in `~/.claude/settings.json` and `~/.codex/hooks.json`; the config file is backed up alongside first. Only entries whose command is exactly our hook path are ever touched. Codex requires you to trust the entries once via `/hooks`. From the CLI:
+**Installer** ([Mac/install-hooks.py](Mac/install-hooks.py)). Stages the hook at `~/.tars/bin/` (no spaces: Codex splits commands on whitespace) and registers it in `~/.claude/settings.json` and `~/.codex/hooks.json`. Ownership is by exact command path, so user hooks are never touched; the config file is backed up alongside itself before every write.
 
 ```zsh
-/usr/bin/python3 Mac/install-hooks.py install   # or: install claude | remove codex | status
+/usr/bin/python3 Mac/install-hooks.py install          # both agents
+/usr/bin/python3 Mac/install-hooks.py remove codex     # one agent
+/usr/bin/python3 Mac/install-hooks.py status
 ```
 
-The hook (`Mac/hook.py`) reads one payload from stdin, projects it to a hashed session key, a normalized state and one clipped detail line (current tool, question, or last assistant message, ≤160 chars), and pushes that to a **loopback-only** listener on 17894 with a 50 ms budget. It always exits 0 and is registered `async` for Claude Code. Events: SessionStart, UserPromptSubmit, Pre/PostToolUse, PostToolUseFailure, PermissionRequest/Denied, Notification (permission_prompt, idle_prompt), Elicitation, Stop, StopFailure, SessionEnd. Questions (`AskUserQuestion`, `ExitPlanMode`) show as approval. Priority: approval → working → completed → waiting. A silent session expires after 30 minutes because hooks provide no liveness query; a turn you interrupt keeps its last state until you type again.
+**State model.** Events map to four phone states, with priority approval → working → completed → waiting across all live sessions.
 
-## Checks
+| Event | State |
+|---|---|
+| SessionStart, StopFailure, Notification(idle_prompt) | waiting |
+| UserPromptSubmit, PreToolUse, PostToolUse, PostToolUseFailure, PermissionDenied, ElicitationResult, Pre/PostCompact | working |
+| PermissionRequest, Notification(permission_prompt), Elicitation, and PreToolUse of `AskUserQuestion` / `ExitPlanMode` | approval |
+| Stop | completed (held 5 s) |
+| SessionEnd | session removed |
+
+A silent session expires after 30 minutes because hooks provide no liveness query. A turn you interrupt keeps its last state until you type again, since Claude Code's `Stop` hook does not fire on cancellation.
+
+**Transport.** The Mac advertises `_tars._tcp`. The phone connects, sends `{"code":"123456"}` as its first line, and then receives newline-delimited JSON snapshots: server session UUID, monotonic sequence, state, source availability, heartbeat interval, detail. A wrong code gets `{"error":"unpaired"}` and a close. Heartbeats every 20 s while active, 120 s while idle. The phone reconnects with bounded backoff and disconnects while backgrounded.
+
+**Privacy.** What crosses the socket and the LAN: a SHA-256 prefix of the session id, the state word, and one line of detail text (tool name plus its description/command/path, the pending question, or the last assistant message, ≤160 chars). Nothing is written to disk. If you don't want task text on the phone, the detail line is one function in `hook.py`.
+
+## Settings
+
+**iPhone** (tap the screen, then ⚙):
+
+- *Pairing code*: the six digits from the Mac.
+- *Colors*: presets Terminal Green, Windows Blue, Techno White, or Custom with a colour per state. Approval stays warm in every preset so it still signals.
+- *Saving battery*: reduce motion; dim to minimal light 10 s after the last update (any event or tap restores it); reduce refresh rate (slower animation cadence, also triggered by Low Power Mode).
+
+**Mac** (menu bar item → Settings…):
+
+- *Pairing*: the code, a "New code" button, last paired/rejected phone, and *Development mode* which streams to any phone without a code.
+- *Agents*: Claude Code and Codex toggles.
+- *Startup*: launch at login, hide the window after startup, show/hide the menu bar item. With the menu bar item hidden, reopen Tars from Applications to get the window back.
+
+## Building
+
+The Xcode project is generated from [project.yml](project.yml); run `xcodegen generate` only after changing it. Targets: `Tars` (iOS 17+) and `TarsMac` (macOS 15+).
+
+```zsh
+# iPhone simulator, no signing
+xcodebuild -project Tars.xcodeproj -scheme Tars -sdk iphonesimulator \
+  -destination 'generic/platform=iOS Simulator' -derivedDataPath .build/iOS CODE_SIGNING_ALLOWED=NO build
+
+# Bare CLI server instead of the menu bar app
+./Mac/run.zsh                # development mode, no pairing
+./Mac/run.zsh --code 123456  # require this pairing code
+```
+
+Debug builds of the phone app accept `--preview-state waiting|working|approval|completed` for screenshots; preview never connects to a server.
+
+## Tests
 
 ```zsh
 /usr/bin/python3 Tests/test_hook.py
-xcrun swiftc Mac/Server.swift Mac/main.swift -o /tmp/tars-server
+xcrun swiftc Mac/Server.swift Mac/EventSource.swift Mac/main.swift -o /tmp/tars-server
 python3 Tests/test_server.py /tmp/tars-server
 ```
 
-The integration test uses separate ports 27893/27894 and does not inject into Vibe Island. It checks fresh snapshots, fragmented input, priority, sequence increments, five-second completion, reconnect, and input limits.
+The server test uses ports 27893/27894 and checks snapshots, fragmented input, priority, sequence numbers, the five-second completion hold, reconnect, and input limits.
 
-## Verified on this Mac
+## Layout
 
-- Xcode 27.0 simulator build succeeded; app installed and launched on iPhone 17 Pro / iOS 26.5.
-- Theme reference pictures live under `themes/<name>/` (`waiting.png`, `working.png`, `approval.png`, `completed.png`); the current pixel-art look is `themes/bit/`.
-- Bonjour discovery and automatic reconnection after server restart verified with established app/server connections.
-- Mirror → native Mac push → iOS approval display verified with an explicit fixture sent through a no-op original launcher; no synthetic event was injected into Vibe Island. One local mirror-to-push check took 49 ms including Python startup; this is not a physical-phone latency benchmark.
-- Seven mirror checks and the isolated server integration check passed.
-- The reversible mirror was installed, and its `--help` preserved the original helper behavior. The Mac server remains running for future events.
+```
+iOS/        SwiftUI phone app (FaceView, AgentLink, Palette)
+MacApp/     SwiftUI menu bar app (settings, hook installer UI)
+Mac/        Server + EventSource (shared), CLI main, hook.py, install-hooks.py
+Tests/      hook unit tests, server integration test
+themes/     reference pictures per theme; themes/bit is the current look
+doc/        translations
+```
 
-Still unverified: a real post-install agent event, physical iPhone discovery/permission behavior, battery consumption, and hardware display refresh rate. This Xcode installation exposes the simulator runtime through `simctl` but has no discoverable Simulator.app GUI; simulator launch and screenshots work.
+## Known limits
+
+- Free Apple ID signing expires after 7 days; reinstall from Xcode.
+- Bonjour needs the phone and Mac on the same network; it reflects reachability, not distance.
+- Only Claude Code and Codex are wired. Other agents can send the same JSON to port 17894.
+- No encryption on the LAN link. Use it on a network you trust.
