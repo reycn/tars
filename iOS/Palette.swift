@@ -20,6 +20,8 @@ struct Palette: Equatable {
         ("Terminal Green", Palette(waiting: Color(hex: "2FBF5A"), working: Color(hex: "39FF6E"), approval: Color(hex: "FFB000"), completed: Color(hex: "9CFFB0"))),
         ("Windows Blue", Palette(waiting: Color(hex: "8FB8FF"), working: Color(hex: "1E90FF"), approval: Color(hex: "FFD34D"), completed: Color(hex: "7FE0FF"))),
         ("Techno White", Palette(waiting: Color(hex: "FFFFFF"), working: Color(hex: "8CF2FF"), approval: Color(hex: "FF9E40"), completed: Color(hex: "73FF8C"))),
+        ("Eva", Palette(waiting: Color(hex: "B48CFF"), working: Color(hex: "7CFF5A"), approval: Color(hex: "FF7A1A"), completed: Color(hex: "C8FF9E"))),
+        ("Pika", Palette(waiting: Color(hex: "FFD600"), working: Color(hex: "FFE97A"), approval: Color(hex: "FFB000"), completed: Color(hex: "FF7A8A"))),
     ]
     static let customName = "Custom"
 

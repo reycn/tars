@@ -69,11 +69,30 @@ Claude Code / Codex ──钩子──▶ ~/.tars/bin/tars-hook ──本机 178
 
 **隐私。** 经过套接字和局域网的内容只有：会话 id 的 SHA-256 前缀、状态词，以及一行详情文本（工具名加其描述/命令/路径、待回答的问题，或最后一条助手消息，≤160 字符）。不会写入磁盘。如果你不希望任务文本出现在手机上，详情行只是 `hook.py` 里的一个函数。
 
+## 主题
+
+在 设置 → *Style* 里选择眼睛样式。所有主题都是原创像素画，来自 [iOS/Theme.swift](../iOS/Theme.swift) 中的 12×12 位图；不使用任何受版权保护的图片，名字只是致敬。选择主题会同时切换到它的配色，你仍可覆盖。
+
+**Eva** —— 斜切的细眼，工作时亮成绿色，待批准时是空瞳的凝视。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/eva/waiting.png" width="220"> | <img src="../themes/eva/working.png" width="220"> | <img src="../themes/eva/approval.png" width="220"> | <img src="../themes/eva/completed.png" width="220"> |
+
+**Pika** —— 带高光的圆黄眼，待批准时是闪电，完成时是星光。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/pika/waiting.png" width="220"> | <img src="../themes/pika/working.png" width="220"> | <img src="../themes/pika/approval.png" width="220"> | <img src="../themes/pika/completed.png" width="220"> |
+
+新增主题：在 `Theme` 里加一个 case、五张位图和一个配色预设，再把图片放到 `themes/<name>/`。
+
 ## 设置
 
 **iPhone**（点击屏幕，再点 ⚙）：
 
 - *配对码*：Mac 上的六位数字。
+- *Style*：眼睛主题（Bit、Eva、Pika）。
 - *颜色*：预设 Terminal Green、Windows Blue、Techno White，或自定义每个状态的颜色。所有预设中“待批准”都保持暖色，以便一眼识别。
 - *省电*：减少动态效果；最后一次更新 10 秒后调暗到最低亮度（任何事件或点击都会恢复）；降低刷新率（更慢的动画节奏，低电量模式也会触发）。
 
@@ -116,7 +135,7 @@ iOS/        SwiftUI 手机应用（FaceView、AgentLink、Palette）
 MacApp/     SwiftUI 菜单栏应用（设置、钩子安装界面）
 Mac/        Server + EventSource（共享）、命令行入口、hook.py、install-hooks.py
 Tests/      钩子单元测试、服务端集成测试
-themes/     各主题的参考图片；themes/bit 是当前外观
+themes/     各主题的参考图片（bit、eva、pika）
 doc/        翻译
 ```
 

@@ -69,11 +69,30 @@ A silent session expires after 30 minutes because hooks provide no liveness quer
 
 **Privacy.** What crosses the socket and the LAN: a SHA-256 prefix of the session id, the state word, and one line of detail text (tool name plus its description/command/path, the pending question, or the last assistant message, ≤160 chars). Nothing is written to disk. If you don't want task text on the phone, the detail line is one function in `hook.py`.
 
+## Themes
+
+Pick the eyes under Settings → *Style*. Every theme is original pixel art drawn from 12×12 bitmaps in [iOS/Theme.swift](iOS/Theme.swift); no licensed imagery is used, the names are homages. Picking a theme also selects its palette, which you can still override.
+
+**Eva** – angled slits that light up green when working, a hollow-pupil stare for approval.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/eva/waiting.png" width="220"> | <img src="themes/eva/working.png" width="220"> | <img src="themes/eva/approval.png" width="220"> | <img src="themes/eva/completed.png" width="220"> |
+
+**Pika** – round yellow eyes with a highlight, a lightning bolt for approval, sparkles when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/pika/waiting.png" width="220"> | <img src="themes/pika/working.png" width="220"> | <img src="themes/pika/approval.png" width="220"> | <img src="themes/pika/completed.png" width="220"> |
+
+To add one: a new case in `Theme` with five bitmaps and a palette preset, plus pictures under `themes/<name>/`.
+
 ## Settings
 
 **iPhone** (tap the screen, then ⚙):
 
 - *Pairing code*: the six digits from the Mac.
+- *Style*: eyes theme (Bit, Eva, Pika).
 - *Colors*: presets Terminal Green, Windows Blue, Techno White, or Custom with a colour per state. Approval stays warm in every preset so it still signals.
 - *Saving battery*: reduce motion; dim to minimal light 10 s after the last update (any event or tap restores it); reduce refresh rate (slower animation cadence, also triggered by Low Power Mode).
 
@@ -116,7 +135,7 @@ iOS/        SwiftUI phone app (FaceView, AgentLink, Palette)
 MacApp/     SwiftUI menu bar app (settings, hook installer UI)
 Mac/        Server + EventSource (shared), CLI main, hook.py, install-hooks.py
 Tests/      hook unit tests, server integration test
-themes/     reference pictures per theme; themes/bit is the current look
+themes/     reference pictures per theme (bit, eva, pika)
 doc/        translations
 ```
 

@@ -213,11 +213,11 @@ struct FaceView: View {
 
 // MARK: - Pixel glyphs
 
-/// 12×12 bitmaps. `#` is lit. Every state is a glyph so the whole face reads as one sprite sheet.
+/// Glyph roles. Bitmaps live in `Theme`; these are the Bit theme's originals.
 enum PixelGlyph: String, CaseIterable {
     case bar, blink, smile, ring, check
 
-    var rows: [String] {
+    var bitRows: [String] {
         switch self {
         case .bar: return [
             "............", "............", "............", "............",
@@ -246,10 +246,12 @@ enum PixelGlyph: String, CaseIterable {
 private struct PixelGlyphView: View {
     let glyph: PixelGlyph
     let color: Color
+    var theme: Theme = .bit
+    var flipped = false
 
     var body: some View {
         Canvas { context, size in
-            let rows = glyph.rows
+            let rows = theme.rows(for: glyph).map { flipped ? String($0.reversed()) : $0 }
             let cell = min(size.width / CGFloat(rows[0].count), size.height / CGFloat(rows.count))
             let gap = max(1, cell * 0.12)   // visible seams = pixel feel
             let originX = (size.width - cell * CGFloat(rows[0].count)) / 2
@@ -269,17 +271,19 @@ private struct PixelGlyphView: View {
 private struct PixelEyes: View {
     let glyph: PixelGlyph
     let color: Color
+    @AppStorage(Theme.key) private var themeName = Theme.bit.rawValue
+    private var theme: Theme { Theme(rawValue: themeName) ?? .bit }
 
     var body: some View {
         GeometryReader { proxy in
             let layout = EyeLayout(in: proxy.size)
             HStack(spacing: layout.spacing) {
-                PixelGlyphView(glyph: glyph, color: color).frame(width: layout.eye, height: layout.eye)
-                PixelGlyphView(glyph: glyph, color: color).frame(width: layout.eye, height: layout.eye)
+                PixelGlyphView(glyph: glyph, color: color, theme: theme).frame(width: layout.eye, height: layout.eye)
+                PixelGlyphView(glyph: glyph, color: color, theme: theme, flipped: theme.mirrored).frame(width: layout.eye, height: layout.eye)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .id(glyph)
+        .id("\(glyph)-\(themeName)")
         .transition(.opacity)
     }
 }
@@ -368,6 +372,7 @@ private struct SettingsSheet: View {
     let onPairingChanged: () -> Void
 
     @AppStorage("pairingCode") private var pairingCode = ""
+    @AppStorage(Theme.key) private var themeName = Theme.bit.rawValue
     @AppStorage("batteryReduceMotion") private var batteryReduceMotion = false
     @AppStorage("batteryDim") private var batteryDim = false
     @AppStorage("batteryLowRefresh") private var batteryLowRefresh = false
@@ -418,7 +423,13 @@ private struct SettingsSheet: View {
                     Text("Reduce motion freezes blinks and pulses. Dimming drops the eyes to minimal light until the next event or a tap. Reduced refresh uses the slower low‑power animation cadence.")
                 }
                 Section("Style") {
-                    LabeledContent("Eyes", value: "Upcoming")
+                    Picker("Eyes", selection: $themeName) {
+                        ForEach(Theme.allCases) { Text($0.title).tag($0.rawValue) }
+                    }
+                    .onChange(of: themeName) { _, name in
+                        // Picking a theme brings its palette; the user can still override below.
+                        if let theme = Theme(rawValue: name) { paletteName = theme.paletteName }
+                    }
                 }
             }
             .navigationTitle("Settings")
