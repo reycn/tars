@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B697AB6D3CFEF4A1D7B9101 /* install-hooks.py in Resources */ = {isa = PBXBuildFile; fileRef = D3B09330D036CEF78500152C /* install-hooks.py */; };
+		45E3F9FC1207ABE73294A97D /* hook.py in Resources */ = {isa = PBXBuildFile; fileRef = 1B02CFC451C6A3A7D106A2B2 /* hook.py */; };
+		7D0F8FB4A9734132BA426F5C /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D396AF91D9C1EB08DFD6E /* Palette.swift */; };
+		7DC148B013356DACA4D48BD5 /* AgentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCDBCA53BCD228EAF7E6A8C /* AgentLink.swift */; };
+		863CBDBD823FADFCD53E95C7 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0294C478F1AF00186CC3BB0 /* FaceView.swift */; };
+		87FF95AEB2C362E72F38C95C /* TarsMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB22CD68B4C86C7D4C0E1F9 /* TarsMacApp.swift */; };
+		AAF2B97DC0DF257D9A9E23FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59F618D0D11176AD53B2D369 /* Assets.xcassets */; };
+		B07AC142F8DBFAF173406194 /* TarsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6876FB5CEA1F964D5D8D9 /* TarsApp.swift */; };
+		B5AA1B9398D4D785039390B1 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9175F75AC181D7BF4B3C7 /* AppModel.swift */; };
+		F232C05287FE5BFE3D7D0E98 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7961693EADE0AE27DAC10CC /* Server.swift */; };
+		F265C9ED375FCAD1F728F90E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1207F97C625EAAD1D387E5 /* SettingsView.swift */; };
+		F7D00EDEA05D576406BD0167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262B58408CCF85FB659C4DEA /* Assets.xcassets */; };
+		F9434008580DAAA4B3C5D337 /* EventSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7898A269C329AB34B2751A /* EventSource.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1B02CFC451C6A3A7D106A2B2 /* hook.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = hook.py; sourceTree = "<group>"; };
+		1DB22CD68B4C86C7D4C0E1F9 /* TarsMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarsMacApp.swift; sourceTree = "<group>"; };
+		262B58408CCF85FB659C4DEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		28E8B6E4BBCBC65BE969F025 /* TarsMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TarsMac.entitlements; sourceTree = "<group>"; };
+		4BD37A751F5E79D401AC19B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		59F618D0D11176AD53B2D369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		67B6876FB5CEA1F964D5D8D9 /* TarsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarsApp.swift; sourceTree = "<group>"; };
+		6A1207F97C625EAAD1D387E5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6BCDBCA53BCD228EAF7E6A8C /* AgentLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentLink.swift; sourceTree = "<group>"; };
+		9759AA2A81DF3F07C2B8BF97 /* TarsMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TarsMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7961693EADE0AE27DAC10CC /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		AA91C84F4A8F5293BCFD5977 /* Tars.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Tars.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6301716D39FC5691B6C7F7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D0294C478F1AF00186CC3BB0 /* FaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
+		D3B09330D036CEF78500152C /* install-hooks.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "install-hooks.py"; sourceTree = "<group>"; };
+		E46D396AF91D9C1EB08DFD6E /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		EA7898A269C329AB34B2751A /* EventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
+		F3C9175F75AC181D7BF4B3C7 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		FCE89BCF2C3BBAD3EB412424 /* AgentEyesMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgentEyesMac.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		20EFE7B349ECE425513BE219 /* MacApp */ = {
+			isa = PBXGroup;
+			children = (
+				FCE89BCF2C3BBAD3EB412424 /* AgentEyesMac.entitlements */,
+				F3C9175F75AC181D7BF4B3C7 /* AppModel.swift */,
+				59F618D0D11176AD53B2D369 /* Assets.xcassets */,
+				4BD37A751F5E79D401AC19B6 /* Info.plist */,
+				6A1207F97C625EAAD1D387E5 /* SettingsView.swift */,
+				28E8B6E4BBCBC65BE969F025 /* TarsMac.entitlements */,
+				1DB22CD68B4C86C7D4C0E1F9 /* TarsMacApp.swift */,
+			);
+			path = MacApp;
+			sourceTree = "<group>";
+		};
+		35B9A23FDDEC44149C64FD0D /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				EA7898A269C329AB34B2751A /* EventSource.swift */,
+				1B02CFC451C6A3A7D106A2B2 /* hook.py */,
+				D3B09330D036CEF78500152C /* install-hooks.py */,
+				A7961693EADE0AE27DAC10CC /* Server.swift */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		9D48D73F7E6C0835E149D73F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA91C84F4A8F5293BCFD5977 /* Tars.app */,
+				9759AA2A81DF3F07C2B8BF97 /* TarsMac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AFC1A5129F1A71B653714212 = {
+			isa = PBXGroup;
+			children = (
+				E0F44B81E326069C30687B78 /* iOS */,
+				35B9A23FDDEC44149C64FD0D /* Mac */,
+				20EFE7B349ECE425513BE219 /* MacApp */,
+				9D48D73F7E6C0835E149D73F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E0F44B81E326069C30687B78 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6BCDBCA53BCD228EAF7E6A8C /* AgentLink.swift */,
+				262B58408CCF85FB659C4DEA /* Assets.xcassets */,
+				D0294C478F1AF00186CC3BB0 /* FaceView.swift */,
+				C6301716D39FC5691B6C7F7C /* Info.plist */,
+				E46D396AF91D9C1EB08DFD6E /* Palette.swift */,
+				67B6876FB5CEA1F964D5D8D9 /* TarsApp.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B1AF57E82A320F71C39BC5F /* TarsMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C52D52D62094E1415DC035C /* Build configuration list for PBXNativeTarget "TarsMac" */;
+			buildPhases = (
+				727E8362389D6F366C0C2781 /* Sources */,
+				636F6A623715C0C0894AC341 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TarsMac;
+			packageProductDependencies = (
+			);
+			productName = TarsMac;
+			productReference = 9759AA2A81DF3F07C2B8BF97 /* TarsMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FF448E4A97122D7FF61CEC28 /* Tars */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82EB91E2F2EC87C7A94C9F3E /* Build configuration list for PBXNativeTarget "Tars" */;
+			buildPhases = (
+				0372A7D305E29DD1C80408D9 /* Sources */,
+				62066FA01137582CC0389739 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tars;
+			packageProductDependencies = (
+			);
+			productName = Tars;
+			productReference = AA91C84F4A8F5293BCFD5977 /* Tars.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1959642CD6008A0C1F7E1BB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					2B1AF57E82A320F71C39BC5F = {
+						ProvisioningStyle = Automatic;
+					};
+					FF448E4A97122D7FF61CEC28 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FD8BB80A5FC1DA9561DEA7B3 /* Build configuration list for PBXProject "Tars" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AFC1A5129F1A71B653714212;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9D48D73F7E6C0835E149D73F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF448E4A97122D7FF61CEC28 /* Tars */,
+				2B1AF57E82A320F71C39BC5F /* TarsMac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62066FA01137582CC0389739 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F7D00EDEA05D576406BD0167 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636F6A623715C0C0894AC341 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAF2B97DC0DF257D9A9E23FC /* Assets.xcassets in Resources */,
+				45E3F9FC1207ABE73294A97D /* hook.py in Resources */,
+				3B697AB6D3CFEF4A1D7B9101 /* install-hooks.py in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0372A7D305E29DD1C80408D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DC148B013356DACA4D48BD5 /* AgentLink.swift in Sources */,
+				863CBDBD823FADFCD53E95C7 /* FaceView.swift in Sources */,
+				7D0F8FB4A9734132BA426F5C /* Palette.swift in Sources */,
+				B07AC142F8DBFAF173406194 /* TarsApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		727E8362389D6F366C0C2781 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5AA1B9398D4D785039390B1 /* AppModel.swift in Sources */,
+				F9434008580DAAA4B3C5D337 /* EventSource.swift in Sources */,
+				F232C05287FE5BFE3D7D0E98 /* Server.swift in Sources */,
+				F265C9ED375FCAD1F728F90E /* SettingsView.swift in Sources */,
+				87FF95AEB2C362E72F38C95C /* TarsMacApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6FEF080214B29CF62BF65B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8CF0ADA4FBFDFFE0E75D1F89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacApp/TarsMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MacApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rongxin.TarsMac;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+			};
+			name = Debug;
+		};
+		92DA8F0A6B6137E22D13ACE9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rongxin.Tars;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E2A7F0F87CEEF2EB385D206D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EAF3AA03B6BF16B87022CCA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rongxin.Tars;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EEAB91CBE3F72A49DAF97665 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MacApp/TarsMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MacApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.rongxin.TarsMac;
+				SDKROOT = macosx;
+				TARGETED_DEVICE_FAMILY = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		82EB91E2F2EC87C7A94C9F3E /* Build configuration list for PBXNativeTarget "Tars" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92DA8F0A6B6137E22D13ACE9 /* Debug */,
+				EAF3AA03B6BF16B87022CCA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8C52D52D62094E1415DC035C /* Build configuration list for PBXNativeTarget "TarsMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CF0ADA4FBFDFFE0E75D1F89 /* Debug */,
+				EEAB91CBE3F72A49DAF97665 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FD8BB80A5FC1DA9561DEA7B3 /* Build configuration list for PBXProject "Tars" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6FEF080214B29CF62BF65B54 /* Debug */,
+				E2A7F0F87CEEF2EB385D206D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1959642CD6008A0C1F7E1BB8 /* Project object */;
+}
