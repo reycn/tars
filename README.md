@@ -85,6 +85,36 @@ Pick the eyes under Settings → *Style*. Every theme is original pixel art draw
 |---|---|---|---|
 | <img src="themes/pika/waiting.png" width="220"> | <img src="themes/pika/working.png" width="220"> | <img src="themes/pika/approval.png" width="220"> | <img src="themes/pika/completed.png" width="220"> |
 
+**Miku** – tall teal eyes with a highlight, a music note while working, a wide stare for approval, sparkle when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/miku/waiting.png" width="220"> | <img src="themes/miku/working.png" width="220"> | <img src="themes/miku/approval.png" width="220"> | <img src="themes/miku/completed.png" width="220"> |
+
+**Naruto** – a determined eye under a headband line, a chakra spiral while working, a three-tomoe ring for approval, a closed grin when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/naruto/waiting.png" width="220"> | <img src="themes/naruto/working.png" width="220"> | <img src="themes/naruto/approval.png" width="220"> | <img src="themes/naruto/completed.png" width="220"> |
+
+**Xiaohei** – round cat eyes with a vertical slit pupil; narrowed while working, wide and golden for approval, content arcs when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/xiaohei/waiting.png" width="220"> | <img src="themes/xiaohei/working.png" width="220"> | <img src="themes/xiaohei/approval.png" width="220"> | <img src="themes/xiaohei/completed.png" width="220"> |
+
+**Dora** – big oval eyes whose hollow pupils wander: centred at rest, down while working, wide for approval, crescents when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/dora/waiting.png" width="220"> | <img src="themes/dora/working.png" width="220"> | <img src="themes/dora/approval.png" width="220"> | <img src="themes/dora/completed.png" width="220"> |
+
+**Snoopy** – tiny bead eyes; a raised brow while working, a startled brow for approval, closed happy eyes when done.
+
+| Waiting | Working | Approval | Completed |
+|---|---|---|---|
+| <img src="themes/snoopy/waiting.png" width="220"> | <img src="themes/snoopy/working.png" width="220"> | <img src="themes/snoopy/approval.png" width="220"> | <img src="themes/snoopy/completed.png" width="220"> |
+
 To add one: a new case in `Theme` with five bitmaps and a palette preset, plus pictures under `themes/<name>/`.
 
 ## Settings
@@ -92,7 +122,7 @@ To add one: a new case in `Theme` with five bitmaps and a palette preset, plus p
 **iPhone** (tap the screen, then ⚙):
 
 - *Pairing code*: the six digits from the Mac.
-- *Style*: eyes theme (Bit, Eva, Pika).
+- *Style*: eyes theme (Bit, Eva, Pika, Miku, Naruto, Xiaohei, Dora, Snoopy).
 - *Colors*: presets Terminal Green, Windows Blue, Techno White, or Custom with a colour per state. Approval stays warm in every preset so it still signals.
 - *Saving battery*: reduce motion; dim to minimal light 10 s after the last update (any event or tap restores it); reduce refresh rate (slower animation cadence, also triggered by Low Power Mode).
 

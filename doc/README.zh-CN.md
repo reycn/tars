@@ -85,6 +85,36 @@ Claude Code / Codex ──钩子──▶ ~/.tars/bin/tars-hook ──本机 178
 |---|---|---|---|
 | <img src="../themes/pika/waiting.png" width="220"> | <img src="../themes/pika/working.png" width="220"> | <img src="../themes/pika/approval.png" width="220"> | <img src="../themes/pika/completed.png" width="220"> |
 
+**Miku** —— 带高光的青色大眼，工作时是音符，待批准时睁大凝视，完成时闪光。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/miku/waiting.png" width="220"> | <img src="../themes/miku/working.png" width="220"> | <img src="../themes/miku/approval.png" width="220"> | <img src="../themes/miku/completed.png" width="220"> |
+
+**Naruto** —— 护额线下的坚定眼神，工作时是查克拉漩涡，待批准是三勾玉环，完成时眯眼笑。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/naruto/waiting.png" width="220"> | <img src="../themes/naruto/working.png" width="220"> | <img src="../themes/naruto/approval.png" width="220"> | <img src="../themes/naruto/completed.png" width="220"> |
+
+**Xiaohei** —— 竖瞳圆猫眼；工作时眯起，待批准时睁大变金色，完成时是满足的弧线。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/xiaohei/waiting.png" width="220"> | <img src="../themes/xiaohei/working.png" width="220"> | <img src="../themes/xiaohei/approval.png" width="220"> | <img src="../themes/xiaohei/completed.png" width="220"> |
+
+**Dora** —— 椭圆大眼，空心瞳孔会转：静止时居中，工作时向下看，待批准时睁大，完成时是月牙。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/dora/waiting.png" width="220"> | <img src="../themes/dora/working.png" width="220"> | <img src="../themes/dora/approval.png" width="220"> | <img src="../themes/dora/completed.png" width="220"> |
+
+**Snoopy** —— 小豆豆眼；工作时挑眉，待批准时惊讶的眉毛，完成时闭眼笑。
+
+| 等待 | 工作中 | 待批准 | 已完成 |
+|---|---|---|---|
+| <img src="../themes/snoopy/waiting.png" width="220"> | <img src="../themes/snoopy/working.png" width="220"> | <img src="../themes/snoopy/approval.png" width="220"> | <img src="../themes/snoopy/completed.png" width="220"> |
+
 新增主题：在 `Theme` 里加一个 case、五张位图和一个配色预设，再把图片放到 `themes/<name>/`。
 
 ## 设置
@@ -92,7 +122,7 @@ Claude Code / Codex ──钩子──▶ ~/.tars/bin/tars-hook ──本机 178
 **iPhone**（点击屏幕，再点 ⚙）：
 
 - *配对码*：Mac 上的六位数字。
-- *Style*：眼睛主题（Bit、Eva、Pika）。
+- *Style*：眼睛主题（Bit、Eva、Pika、Miku、Naruto、Xiaohei、Dora、Snoopy）。
 - *颜色*：预设 Terminal Green、Windows Blue、Techno White，或自定义每个状态的颜色。所有预设中“待批准”都保持暖色，以便一眼识别。
 - *省电*：减少动态效果；最后一次更新 10 秒后调暗到最低亮度（任何事件或点击都会恢复）；降低刷新率（更慢的动画节奏，低电量模式也会触发）。
 

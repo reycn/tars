@@ -22,6 +22,11 @@ struct Palette: Equatable {
         ("Techno White", Palette(waiting: Color(hex: "FFFFFF"), working: Color(hex: "8CF2FF"), approval: Color(hex: "FF9E40"), completed: Color(hex: "73FF8C"))),
         ("Eva", Palette(waiting: Color(hex: "B48CFF"), working: Color(hex: "7CFF5A"), approval: Color(hex: "FF7A1A"), completed: Color(hex: "C8FF9E"))),
         ("Pika", Palette(waiting: Color(hex: "FFD600"), working: Color(hex: "FFE97A"), approval: Color(hex: "FFB000"), completed: Color(hex: "FF7A8A"))),
+        ("Miku", Palette(waiting: Color(hex: "39C5BB"), working: Color(hex: "7FF5EC"), approval: Color(hex: "FF8AB0"), completed: Color(hex: "A6FFE8"))),
+        ("Naruto", Palette(waiting: Color(hex: "FF8C1A"), working: Color(hex: "4DA6FF"), approval: Color(hex: "FF3B3B"), completed: Color(hex: "FFD27A"))),
+        ("Xiaohei", Palette(waiting: Color(hex: "7CE0FF"), working: Color(hex: "B3F0FF"), approval: Color(hex: "FFB13B"), completed: Color(hex: "B8FFC8"))),
+        ("Dora", Palette(waiting: Color(hex: "FFFFFF"), working: Color(hex: "4FB3FF"), approval: Color(hex: "FF5C5C"), completed: Color(hex: "FFE14D"))),
+        ("Snoopy", Palette(waiting: Color(hex: "FFFFFF"), working: Color(hex: "E6E6FF"), approval: Color(hex: "FFCC00"), completed: Color(hex: "FF6B6B"))),
     ]
     static let customName = "Custom"
 
