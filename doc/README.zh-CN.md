@@ -6,7 +6,7 @@
 
 [English](../README.md) · **中文**
 
-把一台闲置的 iPhone 变成编程智能体的常亮状态面板。纯黑屏幕上的两只像素眼睛，让你隔着房间就能看出 Claude Code 或 Codex 正在思考、等你批准、已完成，还是空闲。
+把一台闲置的 iPhone 变成编程智能体的常亮状态面板。纯黑屏幕上的两只像素眼睛，让你隔着房间就能看出 Claude Code、Codex、opencode 或 pi 正在思考、等你批准、已完成，还是空闲。
 
 | 等待 | 工作中 | 待批准 | 已完成 |
 |---|---|---|---|
@@ -16,7 +16,7 @@
 
 - **iPhone 应用**：全屏像素风脸孔，保持常亮，自动横竖屏，AMOLED 友好（背景永远是纯黑，状态由字形和像素颜色表达）。
 - **Mac 菜单栏应用**：无需账号。它监听智能体的生命周期钩子，归纳为一个状态，通过 Bonjour 在局域网内推送给已配对的手机。
-- **钩子而非日志抓取**：与 [codestatus](https://github.com/henriquegpb/codestatus) 相同的思路。Claude Code 和 Codex 在每个生命周期事件上调用一个极小的钩子脚本，除此之外不监视任何东西。
+- **钩子而非日志抓取**：与 [codestatus](https://github.com/henriquegpb/codestatus) 相同的思路。Claude Code、Codex、opencode 和 pi 在每个生命周期事件上调用一个极小的钩子脚本，除此之外不监视任何东西。
 - **详情行**：眼睛下方显示当前工具、待回答的问题或最后一条助手消息，最多两行。
 - **配对**：Mac 上显示六位配对码，手机输入一次即可。
 
@@ -29,7 +29,7 @@
    cp -R .build/mac/Build/Products/Release/TarsMac.app /Applications/Tars.app && open /Applications/Tars.app
    ```
 
-2. **连接智能体**：在 Mac 应用中打开 设置（⌘,）→ *Agents*，打开 Claude Code 和/或 Codex。Codex 还需要你在 Codex 内运行一次 `/hooks` 并信任 Tars 的条目。
+2. **连接智能体**：在 Mac 应用中打开 设置（⌘,）→ *Agents*，打开 Claude Code、Codex、opencode 或 pi。Codex 还需要你在 Codex 内运行一次 `/hooks` 并信任 Tars 的条目。
 
 3. **iPhone**：用 Xcode 打开 `Tars.xcodeproj`，在 Signing & Capabilities 里选择你的团队，选中手机，运行。弹出提示时允许“本地网络”访问。
 
@@ -40,15 +40,24 @@
 ## 工作原理
 
 ```
-Claude Code / Codex ──钩子──▶ ~/.tars/bin/tars-hook ──本机 17894──▶ Tars.app ──Bonjour/TCP 17893──▶ iPhone
+Claude Code / Codex / opencode / pi ──钩子──▶ ~/.tars/bin/tars-hook ──本机 17894──▶ Tars.app ──Bonjour/TCP 17893──▶ iPhone
 ```
 
 **钩子**（[Mac/hook.py](../Mac/hook.py)）。从 stdin 读取一条 JSON 载荷，投影为哈希后的会话键、归一化状态和一行裁剪后的详情，在 50 ms 预算内推送到 `127.0.0.1:17894`。它永远以 0 退出，并在 Claude Code 中以 `async` 方式注册，因此绝不会阻塞或拖垮智能体。
 
-**安装器**（[Mac/install-hooks.py](../Mac/install-hooks.py)）。把钩子放到 `~/.tars/bin/`（路径无空格：Codex 会按空白分割命令），并注册到 `~/.claude/settings.json` 和 `~/.codex/hooks.json`。归属判断依据是命令路径完全相等，因此绝不会碰用户自己的钩子；每次写入前都会在原文件旁边做备份。
+**安装器**（[Mac/install-hooks.py](../Mac/install-hooks.py)）。按智能体各放一份钩子到 `~/.tars/bin/`（路径无空格：Codex 会按空白分割命令；对会丢弃钩子参数的智能体，文件名本身携带智能体名），再按各自的方式接入：
+
+| 智能体 | 接入位置 | 注册形式 |
+|---|---|---|
+| Claude Code | `~/.claude/settings.json` | `async` 命令钩子条目 |
+| Codex | `~/.codex/hooks.json` | 命令钩子条目，需用 `/hooks` 信任 |
+| opencode | `~/.config/opencode/plugin/tars.js` | [插件](../Mac/opencode-plugin.js)（`event`、`chat.message`、`tool.execute.before`、`permission.ask`） |
+| pi | `~/.pi/agent/extensions/tars.ts` | [扩展](../Mac/pi-extension.ts)（`session_start`、`before_agent_start`、`tool_call`、`message_end`、`agent_end`、`session_shutdown`） |
+
+对于走 JSON 配置的两个智能体，归属判断依据是命令路径完全相等，因此绝不会碰用户自己的钩子；每次写入前都会在原文件旁边做备份。对于 opencode 和 pi，Tars 只拥有自己的那一个文件，移除时也只删这一个；旧版 Tars 留下的副本会被视作未开启，重新打开开关即可刷新。两个适配器都把各自智能体的事件翻译成钩子已经在 Claude Code 上读取的那套载荷，因此状态映射始终只存在于 `hook.py`。
 
 ```zsh
-/usr/bin/python3 Mac/install-hooks.py install          # 两个智能体
+/usr/bin/python3 Mac/install-hooks.py install          # 全部智能体
 /usr/bin/python3 Mac/install-hooks.py remove codex     # 单个智能体
 /usr/bin/python3 Mac/install-hooks.py status
 ```
@@ -129,7 +138,7 @@ Claude Code / Codex ──钩子──▶ ~/.tars/bin/tars-hook ──本机 178
 **Mac**（菜单栏图标 → Settings…）：
 
 - *配对*：配对码、“New code”按钮、最近一次配对/拒绝的手机，以及 *Development mode*（无需配对码向任何手机推送）。
-- *Agents*：Claude Code 和 Codex 开关。
+- *Agents*：Claude Code、Codex、opencode 和 pi 开关。
 - *启动*：登录时启动、启动后隐藏窗口、显示/隐藏菜单栏图标。隐藏菜单栏图标后，从“应用程序”重新打开 Tars 即可找回窗口。
 
 ## 构建
@@ -152,6 +161,7 @@ xcodebuild -project Tars.xcodeproj -scheme Tars -sdk iphonesimulator \
 
 ```zsh
 /usr/bin/python3 Tests/test_hook.py
+/usr/bin/python3 Tests/test_install_hooks.py
 xcrun swiftc Mac/Server.swift Mac/EventSource.swift Mac/main.swift -o /tmp/tars-server
 python3 Tests/test_server.py /tmp/tars-server
 ```
@@ -163,8 +173,9 @@ python3 Tests/test_server.py /tmp/tars-server
 ```
 iOS/        SwiftUI 手机应用（FaceView、AgentLink、Palette）
 MacApp/     SwiftUI 菜单栏应用（设置、钩子安装界面）
-Mac/        Server + EventSource（共享）、命令行入口、hook.py、install-hooks.py
-Tests/      钩子单元测试、服务端集成测试
+Mac/        Server + EventSource（共享）、命令行入口、hook.py、install-hooks.py、
+            opencode-plugin.js、pi-extension.ts
+Tests/      钩子与安装器单元测试、服务端集成测试
 themes/     各主题的参考图片（bit、eva、pika）
 doc/        翻译
 ```
@@ -173,5 +184,6 @@ doc/        翻译
 
 - 免费 Apple ID 签名 7 天后过期，需从 Xcode 重新安装。
 - Bonjour 要求手机和 Mac 在同一网络；它反映的是可达性，而非物理距离。
-- 目前只接入了 Claude Code 和 Codex。其他智能体可以向 17894 端口发送相同的 JSON。
+- 目前只接入了 Claude Code、Codex、opencode 和 pi。其他智能体可以向 17894 端口发送相同的 JSON。
+- pi 没有自己的批准事件，因此 pi 会话在等待工具确认时仍显示为工作中。
 - 局域网链路未加密，请在可信网络中使用。

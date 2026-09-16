@@ -25,16 +25,18 @@ struct SettingsView: View {
                 if let last = model.lastPairing { Text(last).font(.callout).foregroundStyle(.secondary) }
             }
             Section {
-                Toggle("Claude Code", isOn: Binding(get: { model.claudeHooked }, set: { model.setHook("claude", installed: $0) }))
-                Toggle("Codex", isOn: Binding(get: { model.codexHooked }, set: { model.setHook("codex", installed: $0) }))
-                if model.codexHooked {
+                ForEach(AppModel.providers) { provider in
+                    Toggle(provider.label, isOn: Binding(get: { model.hooked[provider.id] ?? false },
+                                                         set: { model.setHook(provider.id, installed: $0) }))
+                }
+                if model.hooked["codex"] == true {
                     Text("Codex only runs hooks you trust: open Codex, run /hooks, and trust the Tars entries in ~/.codex/hooks.json.")
                         .font(.callout).foregroundStyle(.secondary)
                 }
             } header: {
                 Text("Agents")
             } footer: {
-                Text("Registers ~/.tars/bin/tars-hook in each agent's own lifecycle hooks (~/.claude/settings.json, ~/.codex/hooks.json). The hook sends only session id, state and one clipped detail line to this Mac; it never blocks the agent. New agent sessions pick it up.")
+                Text("Registers ~/.tars/bin/tars-hook in each agent's own lifecycle hooks: a config entry for Claude Code and Codex, a plugin file for opencode (~/.config/opencode/plugin/tars.js) and pi (~/.pi/agent/extensions/tars.ts). The hook sends only session id, state and one clipped detail line to this Mac; it never blocks the agent. New agent sessions pick it up.")
             }
             Section("Startup") {
                 Toggle("Launch at login", isOn: Binding(get: { model.launchAtLogin }, set: { model.setLaunchAtLogin($0) }))

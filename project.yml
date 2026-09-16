@@ -38,6 +38,10 @@ targets:
         buildPhase: resources
       - path: Mac/install-hooks.py
         buildPhase: resources
+      - path: Mac/opencode-plugin.js
+        buildPhase: resources
+      - path: Mac/pi-extension.ts
+        buildPhase: resources
     info:
       path: MacApp/Info.plist
       properties:

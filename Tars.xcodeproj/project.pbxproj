@@ -13,10 +13,12 @@
 		7DC148B013356DACA4D48BD5 /* AgentLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BCDBCA53BCD228EAF7E6A8C /* AgentLink.swift */; };
 		863CBDBD823FADFCD53E95C7 /* FaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0294C478F1AF00186CC3BB0 /* FaceView.swift */; };
 		87FF95AEB2C362E72F38C95C /* TarsMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB22CD68B4C86C7D4C0E1F9 /* TarsMacApp.swift */; };
+		8C0628DA253CD5A856D31F9F /* opencode-plugin.js in Resources */ = {isa = PBXBuildFile; fileRef = D76B73840DBBA416F8D3CFF8 /* opencode-plugin.js */; };
 		AAF2B97DC0DF257D9A9E23FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59F618D0D11176AD53B2D369 /* Assets.xcassets */; };
 		B07AC142F8DBFAF173406194 /* TarsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6876FB5CEA1F964D5D8D9 /* TarsApp.swift */; };
 		B5AA1B9398D4D785039390B1 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9175F75AC181D7BF4B3C7 /* AppModel.swift */; };
 		DB90186F7EE945BEB1D856A4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF97F9A3B2EEB02B643E5 /* Theme.swift */; };
+		F0911802DE1A419004797C7B /* pi-extension.ts in Resources */ = {isa = PBXBuildFile; fileRef = E63A315C7AF7811FDA21895A /* pi-extension.ts */; };
 		F232C05287FE5BFE3D7D0E98 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7961693EADE0AE27DAC10CC /* Server.swift */; };
 		F265C9ED375FCAD1F728F90E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1207F97C625EAAD1D387E5 /* SettingsView.swift */; };
 		F7D00EDEA05D576406BD0167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262B58408CCF85FB659C4DEA /* Assets.xcassets */; };
@@ -40,7 +42,9 @@
 		C6301716D39FC5691B6C7F7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0294C478F1AF00186CC3BB0 /* FaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceView.swift; sourceTree = "<group>"; };
 		D3B09330D036CEF78500152C /* install-hooks.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "install-hooks.py"; sourceTree = "<group>"; };
+		D76B73840DBBA416F8D3CFF8 /* opencode-plugin.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "opencode-plugin.js"; sourceTree = "<group>"; };
 		E46D396AF91D9C1EB08DFD6E /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		E63A315C7AF7811FDA21895A /* pi-extension.ts */ = {isa = PBXFileReference; path = "pi-extension.ts"; sourceTree = "<group>"; };
 		EA7898A269C329AB34B2751A /* EventSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSource.swift; sourceTree = "<group>"; };
 		F3C9175F75AC181D7BF4B3C7 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		FCE89BCF2C3BBAD3EB412424 /* AgentEyesMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgentEyesMac.entitlements; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 				EA7898A269C329AB34B2751A /* EventSource.swift */,
 				1B02CFC451C6A3A7D106A2B2 /* hook.py */,
 				D3B09330D036CEF78500152C /* install-hooks.py */,
+				D76B73840DBBA416F8D3CFF8 /* opencode-plugin.js */,
+				E63A315C7AF7811FDA21895A /* pi-extension.ts */,
 				A7961693EADE0AE27DAC10CC /* Server.swift */,
 			);
 			path = Mac;
@@ -197,6 +203,8 @@
 				AAF2B97DC0DF257D9A9E23FC /* Assets.xcassets in Resources */,
 				45E3F9FC1207ABE73294A97D /* hook.py in Resources */,
 				3B697AB6D3CFEF4A1D7B9101 /* install-hooks.py in Resources */,
+				8C0628DA253CD5A856D31F9F /* opencode-plugin.js in Resources */,
+				F0911802DE1A419004797C7B /* pi-extension.ts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

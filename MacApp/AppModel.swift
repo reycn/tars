@@ -16,8 +16,12 @@ final class AppModel: ObservableObject {
     @Published var detail: String?
     @Published var lastPairing: String?
     @Published var error: String?
-    @Published var claudeHooked = false
-    @Published var codexHooked = false
+    @Published var hooked: [String: Bool] = [:]
+
+    /// Agents the hook installer knows about, in the order Settings lists them.
+    struct Provider: Identifiable { let id: String; let label: String }
+    static let providers = [Provider(id: "claude", label: "Claude Code"), Provider(id: "codex", label: "Codex"),
+                            Provider(id: "opencode", label: "opencode"), Provider(id: "pi", label: "pi")]
 
     private var server: Server?
     private var source: EventSource?
@@ -61,8 +65,7 @@ final class AppModel: ObservableObject {
         guard let out = runInstaller(["status"]),
               let data = out.data(using: .utf8),
               let status = try? JSONSerialization.jsonObject(with: data) as? [String: Bool] else { return }
-        claudeHooked = status["claude"] ?? false
-        codexHooked = status["codex"] ?? false
+        hooked = status
     }
 
     func setHook(_ provider: String, installed: Bool) {

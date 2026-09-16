@@ -30,6 +30,8 @@ class HookTests(unittest.TestCase):
     def test_provider_from_args_or_name(self):
         self.assertEqual(hook.provider(["/x/tars-hook", "--provider", "claude-code"]), "claude")
         self.assertEqual(hook.provider(["/x/tars-hook-codex"]), "codex")
+        self.assertEqual(hook.provider(["/x/tars-hook-opencode"]), "opencode")
+        self.assertEqual(hook.provider(["/x/tars-hook-pi"]), "pi")
         self.assertEqual(hook.provider(["/x/tars-hook"]), "claude")
 
     def test_clip(self):

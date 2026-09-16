@@ -58,15 +58,14 @@ def _clip(value: Any) -> str | None:
 
 
 def provider(argv: Sequence[str]) -> str:
-    """`--provider X` from Claude's `args`; Codex drops args, so the executable name carries it."""
+    """`--provider X` from Claude's `args`; other agents drop args, so `tars-hook-<name>` carries it."""
     args = list(argv)
     for index, argument in enumerate(args[1:], 1):
         if argument == "--provider" and index + 1 < len(args):
             return args[index + 1].lower().replace("-code", "")
     name = (args[0] if args else "").rsplit("/", 1)[-1]
-    if name.endswith("-codex"):
-        return "codex"
-    return "claude"
+    suffix = name[len("tars-hook-"):] if name.startswith("tars-hook-") else ""
+    return suffix or "claude"
 
 
 def state_for(event: dict[str, Any]) -> str | None:

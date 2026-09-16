@@ -6,7 +6,7 @@ Turns your iPhone into the face of your agents on Mac. Inspired by *Interstellar
 
 **English** · [中文](doc/README.zh-CN.md)
 
-Two pixel eyes on a pure-black screen tell you, from across the room, whether Claude Code or Codex is thinking, waiting for your approval, done, or idle.
+Two pixel eyes on a pure-black screen tell you, from across the room, whether Claude Code, Codex, opencode or pi is thinking, waiting for your approval, done, or idle.
 
 | Waiting | Working | Approval | Completed |
 |---|---|---|---|
@@ -16,7 +16,7 @@ Two pixel eyes on a pure-black screen tell you, from across the room, whether Cl
 
 - **iPhone app**: full-screen pixel-art face, keeps the screen awake, auto-rotates, AMOLED-friendly (background is always true black; state is carried by glyph shape and pixel colour).
 - **Mac menu bar app**: discovers nothing, needs no account. It listens for agent lifecycle hooks, reduces them to one state, and pushes that to paired phones over your local network via Bonjour.
-- **Agent hooks, not log scraping**: the same approach as [codestatus](https://github.com/henriquegpb/codestatus). Claude Code and Codex call a tiny hook script on every lifecycle event; nothing else is watched.
+- **Agent hooks, not log scraping**: the same approach as [codestatus](https://github.com/henriquegpb/codestatus). Claude Code, Codex, opencode and pi call a tiny hook script on every lifecycle event; nothing else is watched.
 - **Detail line**: under the eyes, the current tool, the pending question, or the last assistant message, clipped to two lines.
 - **Pairing**: a six-digit code shown on the Mac, entered once on the phone.
 
@@ -29,7 +29,7 @@ Two pixel eyes on a pure-black screen tell you, from across the room, whether Cl
    cp -R .build/mac/Build/Products/Release/TarsMac.app /Applications/Tars.app && open /Applications/Tars.app
    ```
 
-2. **Connect your agents**: in the Mac app, Settings (⌘,) → *Agents*, switch on Claude Code and/or Codex. Codex additionally needs you to run `/hooks` inside Codex once and trust the Tars entries.
+2. **Connect your agents**: in the Mac app, Settings (⌘,) → *Agents*, switch on Claude Code, Codex, opencode or pi. Codex additionally needs you to run `/hooks` inside Codex once and trust the Tars entries.
 
 3. **iPhone**: open `Tars.xcodeproj` in Xcode, pick your team under Signing & Capabilities, select the phone, run. Allow Local Network access when asked.
 
@@ -40,15 +40,24 @@ Start a new agent session and the eyes come alive. Sessions that were already op
 ## How it works
 
 ```
-Claude Code / Codex ──hook──▶ ~/.tars/bin/tars-hook ──loopback 17894──▶ Tars.app ──Bonjour/TCP 17893──▶ iPhone
+Claude Code / Codex / opencode / pi ──hook──▶ ~/.tars/bin/tars-hook ──loopback 17894──▶ Tars.app ──Bonjour/TCP 17893──▶ iPhone
 ```
 
 **Hook** ([Mac/hook.py](Mac/hook.py)). Reads one JSON payload from stdin, projects it to a hashed session key, a normalized state, and one clipped detail line, and pushes that to `127.0.0.1:17894` with a 50 ms budget. It always exits 0 and is registered `async` for Claude Code, so it can never block or fail the agent.
 
-**Installer** ([Mac/install-hooks.py](Mac/install-hooks.py)). Stages the hook at `~/.tars/bin/` (no spaces: Codex splits commands on whitespace) and registers it in `~/.claude/settings.json` and `~/.codex/hooks.json`. Ownership is by exact command path, so user hooks are never touched; the config file is backed up alongside itself before every write.
+**Installer** ([Mac/install-hooks.py](Mac/install-hooks.py)). Stages one hook copy per agent at `~/.tars/bin/` (no spaces: Codex splits commands on whitespace; the file name carries the agent name for agents that drop hook arguments), then wires each agent its own way:
+
+| Agent | Wired through | Registered as |
+|---|---|---|
+| Claude Code | `~/.claude/settings.json` | `async` command hook entry |
+| Codex | `~/.codex/hooks.json` | command hook entry, trusted via `/hooks` |
+| opencode | `~/.config/opencode/plugin/tars.js` | [plugin](Mac/opencode-plugin.js) (`event`, `chat.message`, `tool.execute.before`, `permission.ask`) |
+| pi | `~/.pi/agent/extensions/tars.ts` | [extension](Mac/pi-extension.ts) (`session_start`, `before_agent_start`, `tool_call`, `message_end`, `agent_end`, `session_shutdown`) |
+
+For the JSON agents, ownership is by exact command path, so user hooks are never touched, and the config file is backed up alongside itself before every write. For opencode and pi, Tars owns exactly one file of its own and removes only that file; a copy left over from an older Tars reads as off, so toggling the agent back on refreshes it. Both adapters translate their agent's events into the same payload the hook already reads from Claude Code, so all the state mapping stays in `hook.py`.
 
 ```zsh
-/usr/bin/python3 Mac/install-hooks.py install          # both agents
+/usr/bin/python3 Mac/install-hooks.py install          # every agent
 /usr/bin/python3 Mac/install-hooks.py remove codex     # one agent
 /usr/bin/python3 Mac/install-hooks.py status
 ```
@@ -129,7 +138,7 @@ To add one: a new case in `Theme` with five bitmaps and a palette preset, plus p
 **Mac** (menu bar item → Settings…):
 
 - *Pairing*: the code, a "New code" button, last paired/rejected phone, and *Development mode* which streams to any phone without a code.
-- *Agents*: Claude Code and Codex toggles.
+- *Agents*: Claude Code, Codex, opencode and pi toggles.
 - *Startup*: launch at login, hide the window after startup, show/hide the menu bar item. With the menu bar item hidden, reopen Tars from Applications to get the window back.
 
 ## Building
@@ -152,6 +161,7 @@ Debug builds of the phone app accept `--preview-state waiting|working|approval|c
 
 ```zsh
 /usr/bin/python3 Tests/test_hook.py
+/usr/bin/python3 Tests/test_install_hooks.py
 xcrun swiftc Mac/Server.swift Mac/EventSource.swift Mac/main.swift -o /tmp/tars-server
 python3 Tests/test_server.py /tmp/tars-server
 ```
@@ -163,8 +173,9 @@ The server test uses ports 27893/27894 and checks snapshots, fragmented input, p
 ```
 iOS/        SwiftUI phone app (FaceView, AgentLink, Palette)
 MacApp/     SwiftUI menu bar app (settings, hook installer UI)
-Mac/        Server + EventSource (shared), CLI main, hook.py, install-hooks.py
-Tests/      hook unit tests, server integration test
+Mac/        Server + EventSource (shared), CLI main, hook.py, install-hooks.py,
+            opencode-plugin.js, pi-extension.ts
+Tests/      hook and installer unit tests, server integration test
 themes/     reference pictures per theme (bit, eva, pika)
 doc/        translations
 ```
@@ -173,5 +184,6 @@ doc/        translations
 
 - Free Apple ID signing expires after 7 days; reinstall from Xcode.
 - Bonjour needs the phone and Mac on the same network; it reflects reachability, not distance.
-- Only Claude Code and Codex are wired. Other agents can send the same JSON to port 17894.
+- Only Claude Code, Codex, opencode and pi are wired. Other agents can send the same JSON to port 17894.
+- pi has no approval event of its own, so a pi session waiting on a tool confirmation still reads as working.
 - No encryption on the LAN link. Use it on a network you trust.
