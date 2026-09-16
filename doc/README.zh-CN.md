@@ -10,7 +10,7 @@
 
 | 等待 | 工作中 | 待批准 | 已完成 |
 |---|---|---|---|
-| ![waiting](../themes/bit/waiting.png) | ![working](../themes/bit/working.png) | ![approval](../themes/bit/approval.png) | ![completed](../themes/bit/completed.png) |
+| <img src="../themes/bit/waiting.png" width="220"> | <img src="../themes/bit/working.png" width="220"> | <img src="../themes/bit/approval.png" width="220"> | <img src="../themes/bit/completed.png" width="220"> |
 
 ## 你会得到什么
 

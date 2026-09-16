@@ -10,7 +10,7 @@ Two pixel eyes on a pure-black screen tell you, from across the room, whether Cl
 
 | Waiting | Working | Approval | Completed |
 |---|---|---|---|
-| ![waiting](themes/bit/waiting.png) | ![working](themes/bit/working.png) | ![approval](themes/bit/approval.png) | ![completed](themes/bit/completed.png) |
+| <img src="themes/bit/waiting.png" width="220"> | <img src="themes/bit/working.png" width="220"> | <img src="themes/bit/approval.png" width="220"> | <img src="themes/bit/completed.png" width="220"> |
 
 ## What you get
 

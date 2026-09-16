@@ -79,7 +79,7 @@
       <rect x="80" y="170" width="56" height="14"/>
     </g>
     <text x="0" y="290" font-size="128" font-weight="700" fill="#f3f5f7" letter-spacing="6">TARS</text>
-    <text x="4" y="345" font-size="30" fill="#c6d0d8">Turns your iPhone into the face of your agents.</text>
+    <text x="4" y="345" font-size="30" fill="#c6d0d8">Turns your iPhone into the face of your agents on Mac.</text>
     <!-- state chips -->
     <g font-size="18" font-weight="600">
       <rect x="4" y="420" width="120" height="34" rx="2" fill="#000" stroke="#ffffff" stroke-opacity="0.6"/>
