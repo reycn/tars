@@ -41,10 +41,16 @@ struct TarsMacApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Keep a log: a menu bar app has no terminal, so listener failures were invisible.
+        let log = NSHomeDirectory() + "/Library/Logs/Tars.log"
+        freopen(log, "a", stdout); freopen(log, "a", stderr)
+        setvbuf(stdout, nil, _IOLBF, 0); setvbuf(stderr, nil, _IONBF, 0)
+        print("Tars launched \(Date())")
         // Start the server here: with the window suppressed and the menu closed, no view ever appears.
         NSApp.setActivationPolicy(.accessory)
         AppModel.shared.start()
     }
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows: Bool) -> Bool {
         if !hasVisibleWindows { NSApp.activate(); NSApp.windows.first?.makeKeyAndOrderFront(nil) }
         return true

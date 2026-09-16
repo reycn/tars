@@ -5,7 +5,8 @@ struct Event: Decodable { let session: String; let state: String; let detail: St
 
 final class EventSource {
     let server: Server
-    let listener: NWListener
+    var listener: NWListener!
+    let port: UInt16
     var sessions: [String: (state: String, time: Date, detail: String?)] = [:]
     var clients: [UUID: NWConnection] = [:]
     var completion: DispatchWorkItem?
@@ -14,6 +15,15 @@ final class EventSource {
 
     init(server: Server, port: UInt16) throws {
         self.server = server
+        self.port = port
+        try startListening()
+        let timer = DispatchSource.makeTimerSource(queue: .main)
+        timer.schedule(deadline: .now() + 60, repeating: 60, leeway: .seconds(5))
+        timer.setEventHandler { [weak self] in self?.expire() }
+        staleTimer = timer; timer.resume()
+    }
+
+    func startListening() throws {
         let parameters = NWParameters.tcp
         parameters.requiredLocalEndpoint = .hostPort(host: "127.0.0.1", port: NWEndpoint.Port(rawValue: port)!)
         listener = try NWListener(using: parameters)
@@ -26,16 +36,14 @@ final class EventSource {
                 connection?.cancel(); self?.clients.removeValue(forKey: id)
             }
         }
-        listener.stateUpdateHandler = { state in
+        listener.stateUpdateHandler = { [weak self] state in
             if case .failed(let error) = state {
-                fputs("Event source failed: \(error)\n", stderr); exit(1)
+                fputs("Event source failed: \(error) · restarting in 2 s\n", stderr)
+                self?.listener.cancel()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { try? self?.startListening() }
             }
         }
         listener.start(queue: .main)
-        let timer = DispatchSource.makeTimerSource(queue: .main)
-        timer.schedule(deadline: .now() + 60, repeating: 60, leeway: .seconds(5))
-        timer.setEventHandler { [weak self] in self?.expire() }
-        staleTimer = timer; timer.resume()
     }
 
     func receive(_ connection: NWConnection, id: UUID, buffer: Data) {

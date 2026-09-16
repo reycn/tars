@@ -20,7 +20,8 @@ final class Server {
     var detail: String?
     var clients: [UUID: NWConnection] = [:]
     var pending: Set<UUID> = []
-    let listener: NWListener
+    var listener: NWListener!
+    let port: UInt16
     var heartbeat: DispatchSourceTimer?
 
     /// Pairing: a phone sends `{"code":"123456"}\n` as its first line. Development mode streams to anyone.
@@ -33,6 +34,13 @@ final class Server {
     static func randomCode() -> String { String(format: "%06d", Int.random(in: 0...999_999)) }
 
     init(port: UInt16) throws {
+        self.port = port
+        try startListening()
+        scheduleHeartbeat()
+    }
+
+    /// Bonjour listeners fail on network changes (Wi‑Fi switch, sleep/wake, VPN). Never exit: rebuild after a pause.
+    func startListening() throws {
         let parameters = NWParameters.tcp
         parameters.includePeerToPeer = true
         if let tcp = parameters.defaultProtocolStack.transportProtocol as? NWProtocolTCP.Options { tcp.noDelay = true }
@@ -61,15 +69,23 @@ final class Server {
             }
             connection.start(queue: .main)
         }
-        listener.stateUpdateHandler = { status in
+        listener.stateUpdateHandler = { [weak self] status in
             switch status {
-            case .ready: print("Tars ready · Bonjour _tars._tcp · port \(port)"); fflush(stdout)
-            case .failed(let error): fputs("Listener failed: \(error)\n", stderr); exit(1)
+            case .ready: print("Tars ready · Bonjour _tars._tcp · port \(self?.port ?? 0)"); fflush(stdout)
+            case .failed(let error): self?.restartListening(after: error)
             default: break
             }
         }
         listener.start(queue: .main)
-        scheduleHeartbeat()
+    }
+
+    private func restartListening(after error: Error) {
+        fputs("Listener failed: \(error) · restarting in 2 s\n", stderr)
+        listener.cancel()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let self else { return }
+            do { try self.startListening() } catch { self.restartListening(after: error) }
+        }
     }
 
     var paired: Set<UUID> = []
