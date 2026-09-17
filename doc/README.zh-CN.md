@@ -12,6 +12,8 @@
 |---|---|---|---|
 | <img src="../themes/bit/waiting.png" width="220"> | <img src="../themes/bit/working.png" width="220"> | <img src="../themes/bit/approval.png" width="220"> | <img src="../themes/bit/completed.png" width="220"> |
 
+<img src="demo.gif" width="320" alt="Tars 状态切换演示">
+
 ## 你会得到什么
 
 - **iPhone 应用**：全屏像素风脸孔，保持常亮，自动横竖屏，AMOLED 友好（背景永远是纯黑，状态由字形和像素颜色表达）。

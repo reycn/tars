@@ -12,6 +12,8 @@ Two pixel eyes on a pure-black screen tell you, from across the room, whether Cl
 |---|---|---|---|
 | <img src="themes/bit/waiting.png" width="220"> | <img src="themes/bit/working.png" width="220"> | <img src="themes/bit/approval.png" width="220"> | <img src="themes/bit/completed.png" width="220"> |
 
+<img src="doc/demo.gif" width="320" alt="Tars face changing state">
+
 ## What you get
 
 - **iPhone app**: full-screen pixel-art face, keeps the screen awake, auto-rotates, AMOLED-friendly (background is always true black; state is carried by glyph shape and pixel colour).
